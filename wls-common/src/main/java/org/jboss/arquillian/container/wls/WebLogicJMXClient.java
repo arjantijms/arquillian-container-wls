@@ -16,6 +16,8 @@
  */
 package org.jboss.arquillian.container.wls;
 
+import static java.lang.Thread.currentThread;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -58,7 +60,6 @@ public class WebLogicJMXClient {
    private MBeanServerConnection connection;
    private JMXConnector connector;
    private ObjectName domainRuntimeService;
-   private ClassLoader jmxLibraryClassLoader;
 
     public WebLogicJMXClient(CommonWebLogicConfiguration configuration) throws LifecycleException {
         this.configuration = configuration;
@@ -274,14 +275,14 @@ public class WebLogicJMXClient {
      * This method is preferably invoked as late as possible.
      */
     private void initWebLogicJMXLibClassLoader() {
-        File wlHome = new File(configuration.getJmxClientJarPath());
         try {
-            URL[] urls = { wlHome.toURI().toURL() };
-            jmxLibraryClassLoader = new WebLogicJMXLibClassLoader(urls, Thread.currentThread().getContextClassLoader());
-            Thread.currentThread().setContextClassLoader(jmxLibraryClassLoader);
+            URL[] urls = { new File(configuration.getJmxClientJarPath()).toURI().toURL() };
+            currentThread().setContextClassLoader(
+                new WebLogicJMXLibClassLoader(urls, currentThread().getContextClassLoader())
+            );
         } catch (MalformedURLException urlEx) {
             throw new RuntimeException(
-                "The constructed path to weblogic.jar appears to be invalid. Verify that you have access to this jar and it's dependencies.",
+                "The constructed path to 'jmxClientJarPath' appears to be invalid. Verify that you have access to this jar and its dependencies.",
                 urlEx
             );
         }
