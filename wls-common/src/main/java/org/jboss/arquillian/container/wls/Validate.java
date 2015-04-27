@@ -47,7 +47,8 @@ public final class Validate {
     }
 
     /**
-     * Checks that the specified String is not null or empty, throws exception if it is.
+     * Checks that the specified String is not null or empty, throws exception
+     * if it is.
      *
      * @param string The object to check
      * @param message The exception message
@@ -91,7 +92,8 @@ public final class Validate {
      *
      * @param path The path to file
      * @param message The exception message
-     * @throws IllegalArgumentException Throws if given file does not exist or if it cannot be read
+     * @throws IllegalArgumentException Throws if given file does not exist or
+     *             if it cannot be read
      */
     public static void isValidFile(final String path, final String message) throws IllegalArgumentException {
         notNull(path, message);
@@ -103,11 +105,13 @@ public final class Validate {
     }
 
     /**
-     * Checks that string is not null and not empty and it represents a path to a valid directory
+     * Checks that string is not null and not empty and it represents a path to
+     * a valid directory
      *
      * @param string The path to check
      * @param message The exception message
-     * @throws ConfigurationException Thrown if string is empty, null or it does not represent a path the a valid directory
+     * @throws ConfigurationException Thrown if string is empty, null or it does
+     *             not represent a path the a valid directory
      */
     public static void directoryExists(final String string, final String message) throws ConfigurationException {
         if (string == null || string.length() == 0 || new File(string).isDirectory() == false) {
@@ -117,17 +121,19 @@ public final class Validate {
 
     /**
      * Checks if value lies in an interval (exclusive)
+     * 
      * @param value the value
      * @param bottom the bottom boundary
      * @param top the top boundary
      * @param message the exception message
-     * @throws IllegalArgumentException Thrown if value does not lie in the interval
+     * @throws IllegalArgumentException Thrown if value does not lie in the
+     *             interval
      */
-    public static void isInRange(final int value, final int bottom, final int top, final String message) throws IllegalArgumentException {
-       if(value > top && value < bottom)
-       {
-          throw new IllegalArgumentException(message);
-       }
+    public static void isInRange(final int value, final int bottom, final int top, final String message)
+            throws IllegalArgumentException {
+        if (value > top && value < bottom) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     public static void isInReadableDirectory(final String path, final String message) throws IllegalArgumentException {
@@ -146,27 +152,24 @@ public final class Validate {
 
     }
 
-   /**
-    * Checks if the value is an allowed value
-    * @param value The value
-    * @param validValues The array of valid values
-    * @param message The exception message.
-    */
-   public static void isInList(String value, String[] validValues, String message)
-   {
-      boolean found = false;
-      for (String validValue : validValues)
-      {
-         if(value.equals(validValue))
-         {
-            found = true;
-            break;
-         }
-      }
-      if(!found)
-      {
-         throw new IllegalArgumentException(message);
-      }
-   }
+    /**
+     * Checks if the value is an allowed value
+     * 
+     * @param value The value
+     * @param validValues The array of valid values
+     * @param message The exception message.
+     */
+    public static void isInList(String value, String[] validValues, String message) {
+        boolean found = false;
+        for (String validValue : validValues) {
+            if (value.equals(validValue)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            throw new IllegalArgumentException(message);
+        }
+    }
 
 }

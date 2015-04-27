@@ -24,8 +24,6 @@ import org.jboss.arquillian.container.wls.ShrinkWrapUtil;
 import org.jboss.arquillian.container.wls.WebLogicJMXClient;
 import org.jboss.shrinkwrap.api.Archive;
 
-import java.io.File;
-
 /**
  * A utility class for performing operations relevant to a remote WebLogic container used by Arquillian.
  * <p>
